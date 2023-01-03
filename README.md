@@ -2,8 +2,7 @@
 
 Treinamento criação de API's
 
-## Ep
+## Chapters
 
 - [x] api 1: Basic API
-- [] api 2: 
-- [] api 3: 
+- [x] api 2:  
