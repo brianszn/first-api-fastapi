@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-# Treinamento RESTAPI
+
+# Treinamento criação de API's
 ## FastAPI
-=======
-# TESTE
->>>>>>> refs/remotes/origin/master
+
+
