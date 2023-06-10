@@ -5,4 +5,4 @@ Treinamento criação de API's
 ## Chapters
 
 
-- [*] api 1: Basic API  
+- [:call_me_hand:] api 1: Basic API  
