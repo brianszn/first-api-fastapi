@@ -12,3 +12,5 @@ async def quad(num: int):
     text = f'o dobro de {num} é {num**2}'
     return {"msg": text}
 
+
+
