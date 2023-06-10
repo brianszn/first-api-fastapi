@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from fastapi import HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Response
 from models import Curso
+
 
 
 app = FastAPI()
@@ -42,9 +42,24 @@ async def cadCursos(curso: Curso):
 async def deleteCurso(id: int):
     if id in cursos:
         del cursos[id]
-        return {'status': 'Curso deletado'}
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
-        return {'status': 'Curso deletado'}
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Inexistente')
+
+
+
+
+@app.put('/cursos/{id}')
+async def putCurso(id: int, curso: Curso):
+    if id in cursos:
+        cursos[id] = curso
+        curso.id = id
+        
+        return curso
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Inexistente')
+
+
 
 
 if __name__ == "__main__":
