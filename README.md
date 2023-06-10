@@ -6,4 +6,4 @@ Treinamento criação de API's
 
 
 - [ :heavy_check_mark: ] api 1: Basic API
-- [ :heavy_check_mark: ] api 2: CursosAPI (GETLPOST,DELETE) (Geek Academy)I  
+- [ :heavy_check_mark: ] api 2: CursosAPI (GET, POST, DELETE) (Geek Academy)I  
