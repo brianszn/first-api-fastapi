@@ -1,19 +1,10 @@
 from fastapi import FastAPI, HTTPException, status, Response, Depends
-from models import Curso
+from models import Curso, cursos
 from time import sleep
 
 
 
-app = FastAPI()
-
-cursos = {
-    1: {
-        'titulo': 'Programação para Leigos',
-        'aulas': 112,
-        'horas': 58
-
-    }
-}
+app = FastAPI(title="API - GEEK UNIVERSITY", version="0.0.1", description="Estudo do FastAPI")
 
 def fake_db():
     try:
@@ -24,18 +15,18 @@ def fake_db():
         sleep(1)
 
 
-@app.get('/cursos')
+@app.get('/cursos', summary='Retorna todos os cursos', response_model=list[Curso]) #Edição da /docs
 
 # db: any = Depends(fake_db)   é uma injeção de depedência
 # Uma função que exerce alguma coisa, que é necessária para o funcionamento de determinado bloco de código
 # Exemplo: Uma consulta num banco de dados, depende de uma função que abra uma conexão com o banco 
 #           pra só depois, realizar a consulta.
 
-async def getCursos(db: any = Depends(fake_db)):
+async def getCursos():
     return cursos
 
 
-@app.get('/cursos/{id}')
+@app.get('/cursos/{id}', summary='Retorna um unico curso baseado no ID')
 async def getCursosById(id: int):
     try:
         curso = cursos[id]
@@ -45,14 +36,15 @@ async def getCursosById(id: int):
 
 
 
-@app.post('/cursos')
+@app.post('/cursos', summary='Enviamos um curso pelo método POST', response_model=Curso)
 async def cadCursos(curso: Curso):
     next_id: int = len(cursos) + 1
-    cursos[next_id] = curso
+    curso.id = next_id
+    cursos.append(curso)
     return curso
 
 
-@app.delete('/cursos/{id}')
+@app.delete('/cursos/{id}', summary='Deletamos um curso pelo seu ID')
 async def deleteCurso(id: int):
     if id in cursos:
         del cursos[id]
@@ -63,7 +55,7 @@ async def deleteCurso(id: int):
 
 
 
-@app.put('/cursos/{id}')
+@app.put('/cursos/{id}', summary='Atualizamos as informações de um curso pelo seu ID')
 async def putCurso(id: int, curso: Curso):
     if id in cursos:
         cursos[id] = curso
