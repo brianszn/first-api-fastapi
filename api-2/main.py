@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException, status, Response
+from fastapi import FastAPI, HTTPException, status, Response, Depends
 from models import Curso
+from time import sleep
 
 
 
@@ -14,10 +15,23 @@ cursos = {
     }
 }
 
+def fake_db():
+    try:
+        print("Abrindo conexão com o banco de dados")
+        sleep(1)
+    finally:
+        print("Fechando conexão com o banco de dados")
+        sleep(1)
+
 
 @app.get('/cursos')
 
-async def getCursos():
+# db: any = Depends(fake_db)   é uma injeção de depedência
+# Uma função que exerce alguma coisa, que é necessária para o funcionamento de determinado bloco de código
+# Exemplo: Uma consulta num banco de dados, depende de uma função que abra uma conexão com o banco 
+#           pra só depois, realizar a consulta.
+
+async def getCursos(db: any = Depends(fake_db)):
     return cursos
 
 
